@@ -22,7 +22,7 @@ theta = normalEqn(X, y);
 fprintf('Calculated the parameters using the normal equation.\n\n');
 %=================================================================
 %% Running parameters on the test set %%
-fprintf('Trying the parameters learned on the test set...\n');
+fprintf('Trying the parameters learned on the test set...\n\n');
 test = data(801:end, :);
 xtest = test(:, 1:3594); ytest = test(:, 3595:end);
 [l, k] = size(xtest);
@@ -43,3 +43,16 @@ errors = sqrt(sum(predict - y).^2);
 disp(errors);
 %==========================================================================
 
+%% Read Test Data into MATLAB %%
+% Topsoil=1 & Subsoil=0
+fprintf('Loading training.csv data into MATLAB...\n')
+testData = csvread('sorted_test.csv', 1, 1);
+
+% add bias 1s
+testData = [ones(size(testData, 1), 1) testData];
+predictions = testData * theta;
+
+% write data to a csv file
+fprintf('Write predictions to submission1.csv file\n\n')
+csvwrite('submission1.csv', predictions);
+%===============================================================================
