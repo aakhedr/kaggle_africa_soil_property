@@ -14,7 +14,7 @@ function [J, grad] = nnCostFunction(nn_params, input_layer_size, ...
 
 	a1 = X; 										% Input unit
 	z2 = a1 * Theta1'; a2 = [ones(m, 1) z2];		% Hidden unit
-	z3 = a2 * Theta2';								% Output unit
+	z3 = a2 * Theta2'; a3 = z3;						% Output unit
 
 	% Regularization term
 	costReg = lambda/ (2 * m) * ... 
@@ -26,6 +26,17 @@ function [J, grad] = nnCostFunction(nn_params, input_layer_size, ...
 	%==========================================================================
 	% Back propagation
 	%==========================================================================
+	delta3 = a3 - y;
+	delta2 = delta3 * Theta2(:, 2:end);
+	DELTA2 = delta3' * a2; DELTA1 = delta2' * a1;
 
+	% Regularization term
+	reg1 = lambda/ m * Theta1; reg2 = lambda/ m * Theta2;
+	reg1(:,1) = 0; reg2(:,1) = 0;
 
+	% Gradient 
+	Theta1_grad = 1/ m * DELTA1 + reg1; Theta2_grad = 1/ m * DELTA2 + reg2;
+
+	%% Unroll gradient
+	grad = [Theta1_grad(:) ; Theta2_grad(:)];
 end

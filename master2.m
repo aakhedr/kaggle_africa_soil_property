@@ -53,11 +53,6 @@ lambda = 0;
 [J, grad] = nnCostFunction(initial_nn_params, input_layer_size, ...
 	hidden_layer_size, num_labels, X, y, lambda);
 
-
-
-
-
-
 %==============================================================================
 % Validation curve to choose the best lambda value
 %==============================================================================
