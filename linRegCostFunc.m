@@ -8,7 +8,7 @@ function [J, grad] = linRegCostFunc(X, y, theta, lambda)
 	% Regularization term
 	costReg = lambda/(2 * m) * sum(theta(2:end,:).^2);
 
-						% Cost
+						% Regularized Cost
 	J = 1/ (2 * m) * SSE + costReg; 
 
 	% without regularization
@@ -18,6 +18,6 @@ function [J, grad] = linRegCostFunc(X, y, theta, lambda)
 	% with regularization
 	grad_rest = 1/ m * (X(:,2:end)' * (predictions - y)) + gradReg;
 						
-						% Gradient	
+						% Regularized Gradient
 	grad = [grad_0; grad_rest];
 end
