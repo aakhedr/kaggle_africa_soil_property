@@ -32,27 +32,26 @@ predictTest = Xtest * theta;
 % calculate SSE
 SSE = sum((predictTest - ytest).^2);
 
-totalErrors = sqrt(SSE);
 fprintf('Total errors per column on 357 examples (test set) are:\n');
-disp(totalErrors);
+disp(SSE);
 %========================================================================
 %% Running parameters on the training set too %%
 fprintf('Total errors per column on 800 examples (training set) are:\n');
 predict = X * theta;
-errors = sqrt(sum(predict - y).^2);
-disp(errors);
+SSE = sum((predict - y).^2);
+disp(SSE);
 %==========================================================================
 
-%% Read Test Data into MATLAB %%
-% Topsoil=1 & Subsoil=0
-fprintf('Loading training.csv data into MATLAB...\n')
-testData = csvread('sorted_test.csv', 1, 1);
+% %% Read Test Data into MATLAB %%
+% % Topsoil=1 & Subsoil=0
+% fprintf('Loading training.csv data into MATLAB...\n')
+% testData = csvread('sorted_test.csv', 1, 1);
 
-% add bias 1s
-testData = [ones(size(testData, 1), 1) testData];
-predictions = testData * theta;
+% % add bias 1s
+% testData = [ones(size(testData, 1), 1) testData];
+% predictions = testData * theta;
 
-% write data to a csv file
-fprintf('Write predictions to submission1.csv file\n\n')
-csvwrite('submission1.csv', predictions);
+% % write data to a csv file
+% fprintf('Write predictions to submission1.csv file\n\n')
+% csvwrite('submission1.csv', predictions);
 %===============================================================================
