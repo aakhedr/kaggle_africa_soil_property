@@ -9,15 +9,16 @@ X = data(1:695, 1:3594); y = data(1:695, 3595);		% Ca label only
 [m, n] = size(X);
 % add intercept term
 X = [ones(m, 1) X];
+
 %==============================================================================
-% Cross validation set (20% of 1157 observations ~= 231 examples)
+% 20% of 1157 observations ~= 231 examples (Cross validation set)
 %==============================================================================
 Xval = data(696:925, 1:3594); yval = data(696:925, 3595);	% Ca label only
 % Add intercept
 Xval = [ones(size(Xval, 1), 1) Xval];
 
 %==============================================================================
-% Learning curve %
+% Learning curve (Linear Regression)
 %==============================================================================
 % lambda = 0;
 % [error_train, error_val] = learningCurve(X, y, Xval, yval, lambda);
@@ -33,8 +34,21 @@ Xval = [ones(size(Xval, 1), 1) Xval];
 %     fprintf('  \t%d\t\t%f\t%f\n', i, error_train(i), error_val(i));
 % end
 
-% fprintf('Program paused. Press enter to continue.\n');
-% pause;
+%==============================================================================
+% Validation curve to choose the best lambda value (Linear Regression)
+%==============================================================================
+% [lambda_vec, error_train, error_val] = validationCurve_LR(X, y, Xval, yval)
+
+% plot(lambda_vec, error_train, lambda_vec, error_val);
+% legend('Train', 'Cross Validation');
+% xlabel('lambda');
+% ylabel('Error');
+
+% fprintf('lambda\t\tTrain Error\tValidation Error\n');
+% for i = 1:length(lambda_vec)
+% 	fprintf(' %f\t%f\t%f\n', lambda_vec(i), error_train(i), error_val(i));
+% end
+
 %==============================================================================
 % Neural Networks 
 %==============================================================================
@@ -48,26 +62,35 @@ initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
 % Unroll parameters
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
-lambda = 0;
+%==============================================================================
+% Training the neural network using fmincg 
+%==============================================================================
+% lambda = 0;
+% nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
+% 	num_labels, X, y, lambda);
 
-[J, grad] = nnCostFunction(initial_nn_params, input_layer_size, ...
-	hidden_layer_size, num_labels, X, y, lambda);
+% Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
+%                  hidden_layer_size, (input_layer_size + 1));
+
+% Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
+%                  num_labels, (hidden_layer_size + 1));
 
 %==============================================================================
-% Validation curve to choose the best lambda value
+% Validation curve to choose the best lambda value (Neural Networks)
 %==============================================================================
-% [lambda_vec, error_train, error_val] = validationCurve(X, y, Xval, yval)
+[lambda_vec, error_train, error_val] = validationCurve_NN(X, y, Xval, yval, ...
+	initial_nn_params, input_layer_size, hidden_layer_size, num_labels)
 
-% plot(lambda_vec, error_train, lambda_vec, error_val);
-% legend('Train', 'Cross Validation');
-% xlabel('lambda');
-% ylabel('Error');
+plot(lambda_vec, error_train, lambda_vec, error_val);
+legend('Train', 'Cross Validation');
+xlabel('lambda');
+ylabel('Error');
 
-% fprintf('lambda\t\tTrain Error\tValidation Error\n');
-% for i = 1:length(lambda_vec)
-% 	fprintf(' %f\t%f\t%f\n', lambda_vec(i), error_train(i), error_val(i));
-% end
+fprintf('lambda\t\tTrain Error\tValidation Error\n');
+for i = 1:length(lambda_vec)
+	fprintf(' %f\t%f\t%f\n', lambda_vec(i), error_train(i), error_val(i));
+end
 
-% fprintf('Program paused. Press enter to continue.\n');
-% pause;
+fprintf('Program paused. Press enter to continue.\n');
+pause;
 %==============================================================================
