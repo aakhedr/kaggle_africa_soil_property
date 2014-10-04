@@ -11,8 +11,11 @@ train = pd.read_csv('training.csv')
 test = pd.read_csv('sorted_test.csv')
 labels = train[['Ca','P','pH','SOC','Sand']].values
 
-train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
-test.drop('PIDN', axis=1, inplace=True)
+# train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
+# test.drop('PIDN', axis=1, inplace=True)
+
+train.drop(['PIDN'], axis=1, inplace=True)
+test.drop(['PIDN'], axis=1, inplace=True)
 
 xtrain, xtest = np.array(train)[:,:3578], np.array(test)[:,:3578]
 
@@ -31,5 +34,5 @@ sample['pH'] = preds[:,2]
 sample['SOC'] = preds[:,3]
 sample['Sand'] = preds[:,4]
 
-sample.to_csv('beating_benchmark.csv', index = False)
+sample.to_csv('submissoin2.2.csv', index = False)
 
