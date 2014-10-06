@@ -21,7 +21,7 @@ Xval = [ones(size(Xval, 1), 1) Xval];
 % Neural Networks 
 % ==============================================================================
 input_layer_size  = 3594;			% Number of features
-hidden_layer_size = 5000;			% The more the better
+hidden_layer_size = 250;			% The more the better
 num_labels = 1;						% Ca prediction
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
@@ -33,7 +33,7 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 % ==============================================================================
 % Training the neural network using fmincg 
 % ==============================================================================
-lambda = 0.1;
+lambda = 0.03;
 nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 	num_labels, X, y, lambda);
 

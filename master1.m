@@ -3,7 +3,7 @@ clear; close all; clc;
 data = csvread('training.csv', 1, 1);
 
 input_layer_size  = 3594;			% Number of features
-hidden_layer_size = 5000;			% The more the better
+hidden_layer_size = 250;			% The more the better
 num_labels = 1;						% Ca prediction
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
@@ -11,7 +11,7 @@ initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
 
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
-X = data(:, 1:3594); [m, n] = size(X); X = [ones(m, 1) X]; lambda = 0.1;
+X = data(:, 1:3594); [m, n] = size(X); X = [ones(m, 1) X]; lambda = 0.03;
 
 testData = csvread('sorted_test.csv', 1, 1); [k, l] = size(testData);
 Xtest = [ones(k, 1) testData];
@@ -94,5 +94,5 @@ for i = 1:5
 	end
 end
 
-csvwrite('submission2.1.csv', [Ca P pH SOC SAND]);
+csvwrite('submission3.csv', [Ca P pH SOC SAND]);
 
