@@ -6,11 +6,9 @@ from sklearn import svm
 import pylab
 
 train = pandas.read_csv('training.csv')
-labels = train[['Ca','P','pH','SOC','Sand']].values
-test = pandas.read_csv('sorted_test.csv')
+y = train[['Ca','P','pH','SOC','Sand']].values
 
 train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
-test.drop('PIDN', axis=1, inplace=True)
 
 xtrain = numpy.array(train)[:695, :3593]
 xval = numpy.array(train)[696:926, :3593]
@@ -28,14 +26,14 @@ valPredictions = numpy.zeros((xval.shape[0], 5))
 for i in range(len(models)):
 	sup_vec = svm.SVR(C=models[i], verbose=2)
 	for j in range(5):
-		sup_vec.fit(xtrain, labels[:695, j])
+		sup_vec.fit(xtrain, y[:695, j])
 		trainPredictions[:, j] = sup_vec.predict(xtrain).astype(float)
 		valPredictions[:, j] = sup_vec.predict(xval).astype(float)
 
-	trainSSE = sum(sum((trainPredictions - labels[:695, :])**2))
+	trainSSE = sum(sum((trainPredictions - y[:695, :])**2))
 	trainSSEs.append(trainSSE)
 
-	valSSE = sum(sum((valPredictions - labels[696:926, :])**2))
+	valSSE = sum(sum((valPredictions - y[696:926, :])**2))
 	valSSEs.append(valSSE)
 
 print 'cross validation...'

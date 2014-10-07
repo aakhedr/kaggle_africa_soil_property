@@ -16,7 +16,7 @@ test.drop('PIDN', axis=1, inplace=True)
 
 xtrain, xtest = np.array(train)[:,:3593], np.array(test)[:,:3593]
 
-sup_vec = svm.SVR(C=600.0, verbose = 2)
+sup_vec = svm.SVR(C=400.0, verbose = 2)
 
 preds = np.zeros((xtest.shape[0], 5))
 for i in range(5):
