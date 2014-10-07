@@ -14,9 +14,8 @@ xtrain = numpy.array(train)[:695, :3593]
 xval = numpy.array(train)[696:926, :3593]
 
 # Varuous values of C
-models = [1.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 
-			90.0, 100.0, 200.0, 300.0, 400.0, 500.0, 550.0, 600.0, 
-			700.0, 800.0, 900.0, 10000.0, 20000.0, 30000.0, 40000.0]
+models = [2800, 3000.0, 3200.0]
+gamma = .0001
 
 trainSSEs, valSSEs = [], []
 
@@ -24,7 +23,7 @@ trainPredictions = numpy.zeros((xtrain.shape[0], 5))
 valPredictions = numpy.zeros((xval.shape[0], 5))
 
 for i in range(len(models)):
-	sup_vec = svm.SVR(C=models[i], verbose=2)
+	sup_vec = svm.SVR(C=models[i], verbose=2, gamma=gamma)
 	for j in range(5):
 		sup_vec.fit(xtrain, y[:695, j])
 		trainPredictions[:, j] = sup_vec.predict(xtrain).astype(float)
@@ -43,7 +42,7 @@ for i in range(len(models)):
 
 pylab.plot(models, trainSSEs, label='error train')
 pylab.plot(models, valSSEs, label='error validation')
-pylab.title('Validation Curve with respect to parameter C')
+pylab.title('Validation Curve with gamma={}'.format(gamma))
 pylab.xlabel('Values of C')
 pylab.ylabel('Sum of squared errors')
 pylab.legend(loc='best')
