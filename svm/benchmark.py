@@ -14,9 +14,9 @@ labels = train[['Ca','P','pH','SOC','Sand']].values
 train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
 test.drop('PIDN', axis=1, inplace=True)
 
-xtrain, xtest = np.array(train)[:,:3578], np.array(test)[:,:3578]
+xtrain, xtest = np.array(train)[:,:3593], np.array(test)[:,:3593]
 
-sup_vec = svm.SVR(C=500.0, verbose = 2)
+sup_vec = svm.SVR(C=600.0, verbose = 2)
 
 preds = np.zeros((xtest.shape[0], 5))
 for i in range(5):
@@ -30,5 +30,5 @@ sample['pH'] = preds[:,2]
 sample['SOC'] = preds[:,3]
 sample['Sand'] = preds[:,4]
 
-sample.to_csv('submission2.5.csv', index = False)
+sample.to_csv('submission4.csv', index = False)
 
