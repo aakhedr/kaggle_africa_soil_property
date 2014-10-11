@@ -16,7 +16,7 @@ test.drop('PIDN', axis=1, inplace=True)
 
 xtrain, xtest = np.array(train)[:,:3593], np.array(test)[:,:3593]
 
-sup_vec = svm.SVR(C=400.0, verbose = 2)
+sup_vec = svm.SVR(C=2500.0, gamma=.0001, verbose = 2)
 
 preds = np.zeros((xtest.shape[0], 5))
 for i in range(5):
@@ -30,5 +30,5 @@ sample['pH'] = preds[:,2]
 sample['SOC'] = preds[:,3]
 sample['Sand'] = preds[:,4]
 
-sample.to_csv('submission4.csv', index = False)
+sample.to_csv('submission7.csv', index = False)
 

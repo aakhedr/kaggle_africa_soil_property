@@ -14,7 +14,7 @@ xtrain = numpy.array(train)[:695, :3593]
 xval = numpy.array(train)[696:926, :3593]
 
 # Varuous values of C
-models = [2800, 3000.0, 3200.0]
+models = [300, 400, 500, 1000.0, 1500.0, 2000.0, 2500.0, 3000.0, 3500.0, 4000.0]
 gamma = .0001
 
 trainSSEs, valSSEs = [], []
