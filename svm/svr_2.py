@@ -10,12 +10,12 @@ y = train[['Ca','P','pH','SOC','Sand']].values
 
 train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
 
-xtrain = numpy.array(train)[:695, :3593]
-xval = numpy.array(train)[696:926, :3593]
+xtrain = numpy.array(train)[:810, :3593]
+xval = numpy.array(train)[811:-1, :3593]
 
 # Varuous values of C
-models = [300, 400, 500, 1000.0, 1500.0, 2000.0, 2500.0, 3000.0, 3500.0, 4000.0]
-gamma = .0001
+models = [1.0, 100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0, 900.0, 1000.0]
+gamma = 0
 
 trainSSEs, valSSEs = [], []
 
@@ -25,14 +25,14 @@ valPredictions = numpy.zeros((xval.shape[0], 5))
 for i in range(len(models)):
 	sup_vec = svm.SVR(C=models[i], verbose=2, gamma=gamma)
 	for j in range(5):
-		sup_vec.fit(xtrain, y[:695, j])
+		sup_vec.fit(xtrain, y[:810, j])
 		trainPredictions[:, j] = sup_vec.predict(xtrain).astype(float)
 		valPredictions[:, j] = sup_vec.predict(xval).astype(float)
 
-	trainSSE = sum(sum((trainPredictions - y[:695, :])**2))
+	trainSSE = sum(sum((trainPredictions - y[:810, :])**2))
 	trainSSEs.append(trainSSE)
 
-	valSSE = sum(sum((valPredictions - y[696:926, :])**2))
+	valSSE = sum(sum((valPredictions - y[811:-1, :])**2))
 	valSSEs.append(valSSE)
 
 print 'cross validation...'
