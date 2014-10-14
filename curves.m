@@ -53,8 +53,8 @@ Xval = [ones(size(Xval, 1), 1) Xval];
 % Neural Networks 
 % ==============================================================================
 input_layer_size  = 3593;			% Number of features
-hidden_layer_size = 8000;			% The more the better
-num_labels = 1;						% P prediction
+hidden_layer_size = 100;			% The more the better
+num_labels = 1;						% Ca prediction
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
 initial_Theta2 = randInitializeWeights(hidden_layer_size, hidden_layer_size);
