@@ -14,7 +14,7 @@ labels = train[['Ca','P','pH','SOC','Sand']].values
 train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
 test.drop('PIDN', axis=1, inplace=True)
 
-xtrain, xtest = np.array(train)[:,:3593], np.array(test)[:,:3593]
+xtrain, xtest = np.array(train)[:,:3578], np.array(test)[:,:3578]
 
 sup_vec = svm.SVR(C=400.0, gamma=0.0, verbose = 2)
 

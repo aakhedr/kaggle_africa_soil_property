@@ -22,7 +22,7 @@ function [J, grad] = nnCostFunction(nn_params, input_layer_size, ...
     
 	z3 = a2 * Theta2'; a3 = [ones(m, 1) z3];	% Hidden unit 2
     
-    z4 = a3 * Theta3'; a4 = z4                 % Output unit
+    z4 = a3 * Theta3'; a4 = z4;                 % Output unit
 
 	% Regularization term
 	costReg = lambda/ (2 * m) * ... 

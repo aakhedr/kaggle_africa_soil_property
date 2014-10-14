@@ -3,7 +3,7 @@ clear; close all; clc;
 data = csvread('training.csv', 1, 1);
 
 input_layer_size  = 3593;			% Number of features
-hidden_layer_size = 150;
+hidden_layer_size = 100;
 num_labels = 1;						% one of prediction values
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
@@ -12,14 +12,13 @@ initial_Theta3 = randInitializeWeights(hidden_layer_size, num_labels);
 
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:); initial_Theta3(:)];
 
-X = data(1:695, 1:3593); m = size(X, 1); X = [ones(m, 1) X]; lambda = .001;
+X = data(1:810, 1:3593); m = size(X, 1); X = [ones(m, 1) X]; lambda = .0001;
 
-Xval = data(696:926, 1:3593);   Xval = [ones(size(Xval, 1), 1) Xval];
-Xtest = data(927:end, 1:3593);  Xtest = [ones(size(Xtest, 1), 1) Xtest];
+Xval = data(811:end, 1:3593);   Xval = [ones(size(Xval, 1), 1) Xval];
 
 for i = 1:5
 	if i == 1
-		y = data(1:695, 3595);		% Ca label only
+		y = data(1:810, 3595);		% Ca label only
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -40,7 +39,7 @@ for i = 1:5
 		Ca = [ones(size(h2, 1), 1) h2] * Theta3';
 
     elseif i == 2
-		y = data(1:695, 3596);		% P label only
+		y = data(1:810, 3596);		% P label only
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -61,7 +60,7 @@ for i = 1:5
 		P = [ones(size(h2, 1), 1) h2] * Theta3';
 
 	elseif i == 3
-		y = data(1:695, 3597);		% pH label only
+		y = data(1:810, 3597);		% pH label only
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -82,7 +81,7 @@ for i = 1:5
 		pH = [ones(size(h2, 1), 1) h2] * Theta3';
 
 	elseif i == 4
-		y = data(1:695, 3598);		% SOC label only
+		y = data(1:810, 3598);		% SOC label only
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -103,7 +102,7 @@ for i = 1:5
 		SOC = [ones(size(h2, 1), 1) h2] * Theta3';
 
 	elseif i == 5
-		y = data(1:695, 3599);		% SAND label only
+		y = data(1:810, 3599);		% SAND label only
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -125,11 +124,11 @@ for i = 1:5
 	end
 end
 
-Ca_SSE = sum((Ca - data(696:926, 3595)).^2);
-P_SSE = sum((P - data(696:926, 3596)).^2);
-pH_SSE = sum((pH - data(696:926, 3597)).^2);
-SOC_SSE = sum((SOC - data(696:926, 3598)).^2);
-SAND_SSE = sum((SAND - data(696:926, 3599)).^2);
+Ca_SSE = sum((Ca - data(811:end, 3595)).^2);
+P_SSE = sum((P - data(811:end, 3596)).^2);
+pH_SSE = sum((pH - data(811:end, 3597)).^2);
+SOC_SSE = sum((SOC - data(811:end, 3598)).^2);
+SAND_SSE = sum((SAND - data(811:end, 3599)).^2);
 
 fprintf('Ca squared error: %f\n', Ca_SSE);
 fprintf('P squared error: %f\n', P_SSE);
