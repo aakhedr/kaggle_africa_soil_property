@@ -4,7 +4,7 @@ data = csvread('training.csv', 1, 1);
 % ==============================================================================
 % 60% of 1157 observations ~= 695 examples (training set)
 % ==============================================================================
-X = data(1:695, 1:3593); y = data(1:695, 3598);		% SOC label only
+X = data(1:695, 1:3593); y = data(1:695, 3599);		% SAND label only
 
 [m, n] = size(X);
 % add intercept term
@@ -13,7 +13,7 @@ X = [ones(m, 1) X];
 % ==============================================================================
 % 20% of 1157 observations ~= 231 examples (Cross validation set)
 % ==============================================================================
-Xval = data(696:926, 1:3593); yval = data(696:926, 3598);	% SOC label only
+Xval = data(696:926, 1:3593); yval = data(696:926, 3599);	% SAND label only
 % Add intercept
 Xval = [ones(size(Xval, 1), 1) Xval];
 
@@ -73,7 +73,7 @@ lambda = 0;
 plot(1:m, error_train, 1:m, error_val);
 title('Learning curve for Neural Networks 2 hidden layers - 100 Neurons')
 legend('Train', 'Cross Validation')
-xlabel('Number of training examples on pH label only')
+xlabel('Number of training examples on SAND label only')
 ylabel('Error')
 
 fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
