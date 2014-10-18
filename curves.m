@@ -4,7 +4,7 @@ data = csvread('training.csv', 1, 1);
 % ==============================================================================
 % 60% of 1157 observations ~= 695 examples (training set)
 % ==============================================================================
-X = data(1:695, 1:3593); y = data(1:695, 3595);		% Ca label only
+X = data(1:695, 1:3593); y = data(1:695, 3598);		% SOC label only
 
 [m, n] = size(X);
 % add intercept term
@@ -13,7 +13,7 @@ X = [ones(m, 1) X];
 % ==============================================================================
 % 20% of 1157 observations ~= 231 examples (Cross validation set)
 % ==============================================================================
-Xval = data(696:926, 1:3593); yval = data(696:926, 3595);	% Ca label only
+Xval = data(696:926, 1:3593); yval = data(696:926, 3598);	% SOC label only
 % Add intercept
 Xval = [ones(size(Xval, 1), 1) Xval];
 
@@ -54,14 +54,14 @@ Xval = [ones(size(Xval, 1), 1) Xval];
 % ==============================================================================
 input_layer_size  = 3593;			% Number of features
 hidden_layer_size = 100;			% The more the better
-num_labels = 1;						% Ca prediction
+num_labels = 1;						% P prediction
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
 initial_Theta2 = randInitializeWeights(hidden_layer_size, hidden_layer_size);
 initial_Theta3 = randInitializeWeights(hidden_layer_size, num_labels);
 
 % Unroll parameters
-initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:); initial_Theta3(:)];
+initial_nn_params = [initial_Theta1(:); initial_Theta2(:); initial_Theta3(:)];
 
 % ==============================================================================
 % Learning curve (Neural Networks 2 hidden layers)
@@ -71,9 +71,9 @@ lambda = 0;
 	lambda, initial_nn_params, input_layer_size, hidden_layer_size, num_labels)
 
 plot(1:m, error_train, 1:m, error_val);
-title('Learning curve for Neural Networks 2 hidden layers')
+title('Learning curve for Neural Networks 2 hidden layers - 100 Neurons')
 legend('Train', 'Cross Validation')
-xlabel('Number of training examples on Ca label only')
+xlabel('Number of training examples on pH label only')
 ylabel('Error')
 
 fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
