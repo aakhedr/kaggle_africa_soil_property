@@ -12,7 +12,7 @@ initial_Theta3 = randInitializeWeights(hidden_layer_size, num_labels);
 
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:); initial_Theta3(:)];
 
-X = data(:, 1:3593); [m, n] = size(X); X = [ones(m, 1) X]; lambda = 0;
+X = data(:, 1:3593); [m, n] = size(X); X = [ones(m, 1) X];
 
 testData = csvread('sorted_test.csv', 1, 1); [k, l] = size(testData);
 Xtest = [ones(k, 1) testData];
@@ -20,6 +20,7 @@ Xtest = [ones(k, 1) testData];
 for i = 1:5
 	if i == 1
 		y = data(:, 3595);		% Ca label only
+        lambda = .03;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -41,6 +42,7 @@ for i = 1:5
 
 	elseif i == 2
 		y = data(:, 3596);		% P label only
+        lambda = 10;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -63,6 +65,7 @@ for i = 1:5
 
 	elseif i == 3
 		y = data(:, 3597);		% pH label only
+        lambda = .1;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -84,6 +87,7 @@ for i = 1:5
 
 	elseif i == 4
 		y = data(:, 3598);		% SOC label only
+        lambda = .0003;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -105,6 +109,7 @@ for i = 1:5
 
 	elseif i == 5
 		y = data(:, 3599);		% SAND label only
+        lambda = .003;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -126,5 +131,5 @@ for i = 1:5
 	end
 end
 
-csvwrite('submission3.csv', [Ca P pH SOC SAND]);
+csvwrite('submission9.csv', [Ca P pH SOC SAND]);
 
