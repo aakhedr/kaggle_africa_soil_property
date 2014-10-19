@@ -3,7 +3,7 @@ clear; close all; clc;
 data = csvread('training.csv', 1, 1);
 
 input_layer_size  = 3593;			% Number of features
-hidden_layer_size = 100;
+hidden_layer_size = 250;
 num_labels = 1;						% one of prediction values
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
@@ -12,13 +12,14 @@ initial_Theta3 = randInitializeWeights(hidden_layer_size, num_labels);
 
 initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:); initial_Theta3(:)];
 
-X = data(1:810, 1:3593); m = size(X, 1); X = [ones(m, 1) X]; lambda = .0001;
+X = data(1:810, 1:3593); m = size(X, 1); X = [ones(m, 1) X];
 
 Xval = data(811:end, 1:3593);   Xval = [ones(size(Xval, 1), 1) Xval];
 
 for i = 1:5
 	if i == 1
 		y = data(1:810, 3595);		% Ca label only
+        lambda = .03;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -40,6 +41,7 @@ for i = 1:5
 
     elseif i == 2
 		y = data(1:810, 3596);		% P label only
+        lambda = 10;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -61,6 +63,7 @@ for i = 1:5
 
 	elseif i == 3
 		y = data(1:810, 3597);		% pH label only
+        lambda = .1;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -82,6 +85,7 @@ for i = 1:5
 
 	elseif i == 4
 		y = data(1:810, 3598);		% SOC label only
+        lambda = .0003;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);
@@ -103,6 +107,7 @@ for i = 1:5
 
 	elseif i == 5
 		y = data(1:810, 3599);		% SAND label only
+        lambda = .003;
 
 		nn_params = trainNN(initial_nn_params, input_layer_size, hidden_layer_size, ...
 			num_labels, X, y, lambda);

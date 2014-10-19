@@ -10,11 +10,11 @@ y = train[['Ca','P','pH','SOC','Sand']].values
 
 train.drop(['Ca', 'P', 'pH', 'SOC', 'Sand', 'PIDN'], axis=1, inplace=True)
 
-xtrain = numpy.array(train)[:810, :3578]
-xval = numpy.array(train)[811:-1, :3578]
+xtrain = numpy.array(train)[:810, :3593]
+xval = numpy.array(train)[811:-1, :3593]
 
 # Varuous values of C
-models = [90.0]
+models = [70.0]
 
 trainSSEs, valSSEs = [], []
 
@@ -46,3 +46,15 @@ pylab.xlabel('Values of C')
 pylab.ylabel('Sum of squared errors')
 pylab.legend(loc='best')
 pylab.show()
+
+# based on 810 training examples and 3593 features
+
+# C	train SSE	validation SSE
+# 50.0	1511.5176484	512.769092011
+# 60.0	1484.2642745	505.634627125
+# 70.0	1459.86573946	501.68397213 --- BEST C
+# 80.0	1439.03525943	503.383746689
+# 90.0	1423.37436418	507.684806286
+# 100.0	1411.85244097	509.933735849
+# 110.0	1400.83312465	513.846776854
+# 120.0	1385.05667742	515.910927813
