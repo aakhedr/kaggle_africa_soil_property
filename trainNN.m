@@ -3,7 +3,7 @@ function [nn_params] = trainNN(initial_nn_params, input_layer_size, ...
 
 	fprintf('\nTraining Neural Network... \n')
 
-	options = optimset('MaxIter', 50);
+	options = optimset('MaxIter', 200);
 
 	% Create "short hand" for the cost function to be minimized
 	costFunction = @(p) nnCostFunction(p, ...

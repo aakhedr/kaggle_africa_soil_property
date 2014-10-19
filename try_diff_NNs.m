@@ -3,7 +3,7 @@ clear; close all; clc;
 data = csvread('training.csv', 1, 1);
 
 input_layer_size  = 3593;			% Number of features
-hidden_layer_size = 250;
+hidden_layer_size = 100;
 num_labels = 1;						% one of prediction values
 
 initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);

@@ -34,7 +34,7 @@ initial_nn_params = [initial_Theta1(:); initial_Theta2(:); initial_Theta3(:)];
 % 	lambda, initial_nn_params, input_layer_size, hidden_layer_size, num_labels)
 
 % plot(1:m, error_train, 1:m, error_val);
-% title('Learning curve for Neural Networks 2 hidden layers - 6000 Neurons')
+% title('Learning curve for Neural Networks 2 hidden layers - 100 Neurons')
 % legend('Train', 'Cross Validation')
 % xlabel('Number of training examples on SAND label only')
 % ylabel('Error')
