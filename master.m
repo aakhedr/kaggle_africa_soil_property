@@ -14,8 +14,8 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:); initial_Theta3(:)];
 
 X = data(:, 1:3593); [m, n] = size(X); X = [ones(m, 1) X];
 
-testData = csvread('sorted_test.csv', 1, 1); [k, l] = size(testData);
-Xtest = [ones(k, 1) testData];
+testData = csvread('sorted_test.csv', 1, 1); testData = testData(:, 1:3593);
+Xtest = [ones(size(testData, 1), 1) testData];
 
 for i = 1:5
 	if i == 1
